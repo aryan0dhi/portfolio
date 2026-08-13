@@ -1,6 +1,6 @@
 /* ============================================================
    Design tokens — "Monument"
-   Warm stone ground, single brass accent. No second hue.
+   Near-black / warm-stone grounds, single vermillion accent. No second hue.
    Contrast verified: see comments for measured ratios.
    ============================================================ */
 
@@ -16,24 +16,25 @@
   --stone-900: #1c1917;
   --ink: #0c0a09;
 
-  /* --- The single accent --- */
-  --brass: #a16207;
-  --brass-lt: #d6b25e;
+  /* --- The single accent: vermillion.
+     It has to differ per theme — #FF3D00 is 5.58:1 on near-black but only
+     3.40:1 on warm white, so light mode steps down to a deeper burn. --- */
+  --flare: #ff3d00; /* dark theme */
+  --flare-deep: #d42d00; /* light theme — 4.82:1 */
 
   /* --- Semantic (light theme) --- */
   --bg: var(--stone-50);
   --bg-raised: #ffffff;
-  --bg-plate: var(--stone-900);
+  --bg-plate: #0a0a0a;
   --fg: var(--ink); /* 18.92:1 */
   --fg-secondary: var(--stone-700); /* 9.84:1 */
   --fg-muted: var(--stone-500); /* 4.59:1 — passes body */
-  --fg-on-plate: var(--stone-50);
-  --fg-muted-on-plate: var(--stone-400);
-  --accent: var(--brass); /* 4.71:1 — passes body */
-  --accent-on-plate: var(--brass-lt);
-  /* Text sitting ON the accent. Must flip with the theme: near-white on
-     dark brass is 4.84:1, but on light brass-lt it collapses to 1.99:1. */
-  --on-accent: #fffdf7;
+  --fg-on-plate: #fafafa;
+  --fg-muted-on-plate: #a3a3a3;
+  --accent: var(--flare-deep); /* 4.82:1 — passes body */
+  --accent-on-plate: var(--flare); /* 5.58:1 on the plate */
+  --on-accent: #ffffff; /* 5.03:1 on flare-deep */
+  --field-dim: #c4c0bd; /* particles — decorative, recedes */
   --rule: var(--stone-200);
   --rule-strong: var(--ink);
 
@@ -90,23 +91,24 @@
 }
 
 /* --- Dark theme -------------------------------------------------
-   Not a naive inversion: muted text moves stone-500 -> stone-400
-   (3.96:1 FAIL -> 7.52:1 PASS) and the accent moves brass -> brass-lt
-   (3.85:1 FAIL -> 9.39:1 PASS).
+   Not a naive inversion. The accent steps up from #D42D00 to #FF3D00
+   (the deeper burn only reaches 2.9:1 on near-black), muted text moves
+   to #A3A3A3 (7.85:1), and on-accent flips white -> near-black.
    ---------------------------------------------------------------- */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #12100f;
-    --bg-raised: #1a1817;
+    --bg: #0a0a0a;
+    --bg-raised: #141414;
     --bg-plate: #000000;
-    --fg: var(--stone-50);
-    --fg-secondary: var(--stone-200);
-    --fg-muted: var(--stone-400);
-    --accent: var(--brass-lt);
-    --accent-on-plate: var(--brass-lt);
-    --on-accent: #1c1917; /* 8.65:1 on brass-lt */
-    --rule: #302b28;
-    --rule-strong: var(--stone-200);
+    --fg: #fafafa; /* 18.97:1 */
+    --fg-secondary: #d4d4d4;
+    --fg-muted: #a3a3a3; /* 7.85:1 */
+    --accent: var(--flare); /* 5.58:1 */
+    --accent-on-plate: var(--flare);
+    --on-accent: #0a0a0a; /* 5.58:1 on flare */
+    --field-dim: #5a5a5a;
+    --rule: #262626;
+    --rule-strong: #fafafa;
     --elev-1: 0 1px 2px rgb(0 0 0 / 0.5);
     --elev-2: 0 4px 14px rgb(0 0 0 / 0.55);
     --elev-3: 0 10px 30px rgb(0 0 0 / 0.6);
@@ -115,17 +117,18 @@
 }
 
 :root[data-theme='dark'] {
-  --bg: #12100f;
-  --bg-raised: #1a1817;
+  --bg: #0a0a0a;
+  --bg-raised: #141414;
   --bg-plate: #000000;
-  --fg: var(--stone-50);
-  --fg-secondary: var(--stone-200);
-  --fg-muted: var(--stone-400);
-  --accent: var(--brass-lt);
-  --accent-on-plate: var(--brass-lt);
-  --on-accent: #1c1917; /* 8.65:1 on brass-lt */
-  --rule: #302b28;
-  --rule-strong: var(--stone-200);
+  --fg: #fafafa;
+  --fg-secondary: #d4d4d4;
+  --fg-muted: #a3a3a3;
+  --accent: var(--flare);
+  --accent-on-plate: var(--flare);
+  --on-accent: #0a0a0a;
+  --field-dim: #5a5a5a;
+  --rule: #262626;
+  --rule-strong: #fafafa;
   --elev-1: 0 1px 2px rgb(0 0 0 / 0.5);
   --elev-2: 0 4px 14px rgb(0 0 0 / 0.55);
   --elev-3: 0 10px 30px rgb(0 0 0 / 0.6);
@@ -135,13 +138,14 @@
 :root[data-theme='light'] {
   --bg: #fafaf9;
   --bg-raised: #ffffff;
-  --bg-plate: #1c1917;
+  --bg-plate: #0a0a0a;
   --fg: #0c0a09;
   --fg-secondary: #44403c;
   --fg-muted: #78716c;
-  --accent: #a16207;
-  --accent-on-plate: #d6b25e;
-  --on-accent: #fffdf7; /* 4.84:1 on brass */
+  --accent: #d42d00;
+  --accent-on-plate: #ff3d00;
+  --on-accent: #ffffff; /* 5.03:1 on flare-deep */
+  --field-dim: #c4c0bd;
   --rule: #d6d3d1;
   --rule-strong: #0c0a09;
   --elev-1: 0 1px 2px rgb(12 10 9 / 0.06), 0 2px 6px -2px rgb(12 10 9 / 0.08);
@@ -298,7 +302,7 @@ button {
   background: var(--rule-strong);
 }
 
-.rule--brass {
+.rule--accent {
   height: 2px;
   background: var(--accent);
 }

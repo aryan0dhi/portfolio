@@ -1,18 +1,29 @@
 .hero {
+  position: relative;
+  isolation: isolate;
   padding-block: clamp(2rem, 4.5vw, 4rem) clamp(2.25rem, 4vw, 3.25rem);
+  min-height: min(88vh, 860px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
 }
 
 .inner {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .kicker {
   margin-bottom: clamp(1rem, 2.5vw, 1.75rem);
 }
 
-/* The monument. Large, but never alone — the rule and the evidence
-   grid sit directly beneath it inside the same viewport. */
 .title {
   font-size: var(--t-hero);
   line-height: 0.84;
@@ -27,7 +38,7 @@
   display: block;
 }
 
-/* Signature moment: a single mask reveal on load, nothing else. */
+/* Signature moment: one mask reveal on load, nothing else. */
 :global(html[data-motion='on']) .line {
   animation: rise 620ms var(--ease-out) both;
   clip-path: inset(0 0 -0.2em 0);
@@ -55,6 +66,68 @@
   }
 }
 
+/* ---- the range row: disciplines drive the field ---- */
+
+.rangeRow {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.rangeLead,
+.rangeTail {
+  font-size: var(--t-19);
+  color: var(--fg-muted);
+}
+
+.disciplines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.discipline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  text-align: left;
+  padding: 0.4rem 0.7rem;
+  min-height: 44px;
+  border: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.discLabel {
+  font-size: var(--t-15);
+  font-weight: 500;
+  color: var(--fg);
+  letter-spacing: -0.01em;
+}
+
+.discNote {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.discipline:hover,
+.discipline[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.discipline[aria-pressed='true'] .discNote {
+  color: var(--accent);
+}
+
 .rule {
   height: 2px;
   background: var(--rule-strong);
@@ -64,20 +137,10 @@
 
 .grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-  gap: clamp(2rem, 5vw, 4.5rem);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
   padding-top: clamp(1.25rem, 2.5vw, 1.75rem);
   align-items: start;
-}
-
-.lede {
-  font-size: clamp(1.25rem, 2.1vw, 1.75rem);
-  line-height: 1.42;
-  letter-spacing: -0.015em;
-  color: var(--fg);
-  max-width: 26ch;
-  text-wrap: pretty;
-  margin: 0;
 }
 
 .now {
@@ -85,7 +148,7 @@
   flex-direction: column;
   gap: var(--sp-3);
   margin: 0;
-  max-width: 46ch;
+  max-width: 52ch;
 }
 
 .nowItem dd {
@@ -110,20 +173,11 @@
   border-bottom-color: var(--accent);
 }
 
-.foot {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--sp-3);
-  flex-wrap: wrap;
-  margin-top: clamp(1.75rem, 3vw, 2.5rem);
-}
-
 .actions {
   display: flex;
-  align-items: center;
-  gap: var(--sp-1) var(--sp-3);
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
 }
 
 .primary {
@@ -131,12 +185,14 @@
   align-items: center;
   min-height: 48px;
   padding: 0 1.5rem;
-  background: var(--fg);
-  color: var(--bg);
+  background: var(--accent);
+  color: var(--on-accent);
   font-family: var(--font-mono);
   font-size: var(--t-13);
+  font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  margin-bottom: 0.5rem;
   transition: transform var(--dur-fast) var(--ease-out);
 }
 
@@ -147,7 +203,7 @@
 .secondary {
   display: inline-flex;
   align-items: center;
-  min-height: 48px;
+  min-height: 44px;
   font-family: var(--font-mono);
   font-size: var(--t-13);
   color: var(--fg-muted);
@@ -162,56 +218,52 @@
   border-bottom-color: var(--accent);
 }
 
-.scroll {
-  font-family: var(--font-mono);
-  font-size: var(--t-11);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-  margin: 0;
-}
-
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   .grid {
     grid-template-columns: 1fr;
     gap: var(--sp-3);
   }
 
-  .lede {
-    max-width: 30ch;
-  }
-}
-
-@media (max-width: 560px) {
-  .foot {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  /* Stack the exits so each is a full-width target. The <li> has to
-     stretch too — width on the <a> alone does nothing inside a flex row. */
   .actions {
-    flex-direction: column;
     align-items: stretch;
-    gap: 0.25rem;
-  }
-
-  .actions li {
     width: 100%;
   }
 
   .primary {
     width: 100%;
     justify-content: center;
-    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero {
+    min-height: 0;
   }
 
-  .secondary {
-    justify-content: flex-start;
-    min-height: 44px;
+  .rangeLead,
+  .rangeTail {
+    font-size: var(--t-17);
   }
 
-  .scroll {
+  .disciplines {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+  }
+
+  /* Drop the sub-label on small screens — four stacked two-line buttons
+     pushed the résumé CTA off the first screen. */
+  .discNote {
     display: none;
+  }
+
+  .discipline {
+    justify-content: center;
+    padding: 0.6rem 0.55rem;
+  }
+
+  .discLabel {
+    font-size: var(--t-13);
   }
 }

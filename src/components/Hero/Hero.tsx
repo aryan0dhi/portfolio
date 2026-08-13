@@ -1,9 +1,18 @@
+import { useState } from 'react';
 import { contact, garmin, profile, vaila } from '../../content/resume';
+import { disciplines, type FormationId } from './formations';
+import { ParticleField } from './ParticleField';
 import styles from './Hero.module.css';
 
 export function Hero() {
+  const [formation, setFormation] = useState<FormationId>('ring');
+
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
+      <div className={styles.field}>
+        <ParticleField formation={formation} />
+      </div>
+
       <div className={`shell ${styles.inner}`}>
         <p className={`eyebrow ${styles.kicker}`}>
           {profile.school} · Computer Engineering · {profile.graduation}
@@ -14,11 +23,33 @@ export function Hero() {
           <span className={styles.line}>Engineer</span>
         </h1>
 
+        {/* The four disciplines double as the control for the field behind
+            them — hovering or focusing one reshapes it into that structure. */}
+        <div className={styles.rangeRow}>
+          <p className={styles.rangeLead}>I work across</p>
+          <ul className={styles.disciplines}>
+            {disciplines.map((d) => (
+              <li key={d.id}>
+                <button
+                  type="button"
+                  className={styles.discipline}
+                  aria-pressed={formation === d.id}
+                  onMouseEnter={() => setFormation(d.id)}
+                  onFocus={() => setFormation(d.id)}
+                  onClick={() => setFormation(d.id)}
+                >
+                  <span className={styles.discLabel}>{d.label}</span>
+                  <span className={styles.discNote}>{d.note}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <p className={styles.rangeTail}>— and go deep at each.</p>
+        </div>
+
         <hr className={styles.rule} />
 
         <div className={styles.grid}>
-          <p className={styles.lede}>{profile.lede}</p>
-
           <dl className={styles.now}>
             <div className={styles.nowItem}>
               <dt className="eyebrow">Currently</dt>
@@ -38,9 +69,7 @@ export function Hero() {
               </dd>
             </div>
           </dl>
-        </div>
 
-        <div className={styles.foot}>
           <ul className={styles.actions}>
             <li>
               <a className={styles.primary} href={contact.resume} target="_blank" rel="noreferrer">
@@ -58,9 +87,6 @@ export function Hero() {
               </a>
             </li>
           </ul>
-          <p className={styles.scroll} aria-hidden="true">
-            Selected work ↓
-          </p>
         </div>
       </div>
     </section>
