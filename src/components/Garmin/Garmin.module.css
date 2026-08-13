@@ -1,0 +1,164 @@
+.section {
+  padding-block: var(--section-y);
+  border-top: 1px solid var(--rule);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4.5vw, 3.5rem);
+}
+
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(10rem, auto);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: end;
+}
+
+/* The single large figure — sits beside the claim, never alone. */
+.count {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  margin: 0;
+}
+
+.countValue {
+  font-family: var(--font-display);
+  font-size: var(--t-figure);
+  font-weight: 700;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: var(--accent);
+}
+
+.countLabel {
+  font-family: var(--font-mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-top: 0.6rem;
+  max-width: 22ch;
+}
+
+.programme {
+  font-family: var(--font-mono);
+  font-size: var(--t-13);
+  letter-spacing: 0.06em;
+  color: var(--fg-muted);
+  padding-bottom: var(--sp-2);
+  border-bottom: 2px solid var(--accent);
+}
+
+/* The verification sequence: four ruled stages reading left to right. */
+.stages {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-2) var(--sp-3) var(--sp-3) 0;
+  border-top: 1px solid var(--rule);
+  min-width: 0;
+}
+
+.stage + .stage {
+  border-left: 1px solid var(--rule);
+  padding-left: var(--sp-3);
+}
+
+.stageNum {
+  font-size: var(--t-11);
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+.stageName {
+  font-family: var(--font-display);
+  font-size: var(--t-19);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0.55rem 0 0.5rem;
+}
+
+.stageBody {
+  font-size: var(--t-15);
+  line-height: 1.6;
+  color: var(--fg-secondary);
+  text-wrap: pretty;
+}
+
+.also {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--rule);
+  padding-top: var(--sp-3);
+}
+
+.alsoItem {
+  font-size: var(--t-15);
+  line-height: 1.65;
+  color: var(--fg-secondary);
+  text-wrap: pretty;
+}
+
+@media (max-width: 1000px) {
+  .stages {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stage:nth-child(odd) {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .stage:nth-child(even) {
+    border-left: 1px solid var(--rule);
+    padding-left: var(--sp-3);
+  }
+}
+
+@media (max-width: 780px) {
+  .top {
+    grid-template-columns: 1fr;
+    gap: var(--sp-3);
+    align-items: start;
+  }
+
+  .count {
+    align-items: flex-start;
+    text-align: left;
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--sp-2);
+  }
+
+  .countLabel {
+    margin-top: 0;
+  }
+
+  .also {
+    grid-template-columns: 1fr;
+    gap: var(--sp-2);
+  }
+}
+
+@media (max-width: 560px) {
+  .stages {
+    grid-template-columns: 1fr;
+  }
+
+  .stage,
+  .stage:nth-child(even) {
+    border-left: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

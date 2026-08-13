@@ -1,0 +1,124 @@
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid transparent;
+  transition:
+    border-color var(--dur-mid) var(--ease-out),
+    background-color var(--dur-mid) var(--ease-out);
+}
+
+.lifted {
+  border-bottom-color: var(--rule);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  min-height: 60px;
+}
+
+.name {
+  font-family: var(--font-mono);
+  font-size: var(--t-13);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0.5rem 0;
+}
+
+.name:hover {
+  color: var(--accent);
+}
+
+.links {
+  min-width: 0;
+}
+
+.list {
+  display: flex;
+  gap: clamp(0.75rem, 2vw, 1.75rem);
+  align-items: center;
+}
+
+.link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  padding: 0.75rem 0;
+  border-bottom: 2px solid transparent;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+  white-space: nowrap;
+}
+
+.link:hover {
+  color: var(--fg);
+}
+
+.link[aria-current='true'] {
+  color: var(--fg);
+  border-bottom-color: var(--accent);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.resume,
+.toggle {
+  font-family: var(--font-mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.resume {
+  padding: 0 0.9rem;
+  background: var(--fg);
+  color: var(--bg);
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.resume:hover {
+  opacity: 0.85;
+}
+
+.toggle {
+  color: var(--fg-muted);
+  padding: 0 0.25rem;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.toggle:hover {
+  color: var(--fg);
+}
+
+/* Below the tablet breakpoint the section list would crowd the bar,
+   so it drops out and the page relies on ordinary scrolling —
+   the résumé and theme controls stay, since those are the exits. */
+@media (max-width: 900px) {
+  .links {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .name {
+    font-size: var(--t-11);
+  }
+}

@@ -1,0 +1,145 @@
+/* The one inverted section on the site. Systems work gets the plate
+   because the numbers are the argument, and they read hardest here. */
+
+.section {
+  padding-block: var(--section-y);
+  background: var(--bg-plate);
+  color: var(--fg-on-plate);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.section :global(.eyebrow) {
+  color: var(--accent-on-plate);
+}
+
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+/* Wide content scrolls inside its own container, never the page. */
+.tableWrap {
+  overflow-x: auto;
+  min-width: 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.caption {
+  caption-side: top;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted-on-plate);
+  padding-bottom: var(--sp-2);
+}
+
+.table thead th {
+  font-family: var(--font-mono);
+  font-size: var(--t-11);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted-on-plate);
+  padding: 0 0 0.75rem;
+  border-bottom: 2px solid var(--accent-on-plate);
+}
+
+.valueCol {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+}
+
+.metric {
+  font-family: var(--font-body);
+  font-size: var(--t-15);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--fg-muted-on-plate);
+  padding: 0.95rem 1.5rem 0.95rem 0;
+}
+
+.value {
+  font-size: var(--t-19);
+  font-weight: 500;
+  color: var(--fg-on-plate);
+  text-align: right;
+  white-space: nowrap;
+  padding: 0.95rem 0;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.figure {
+  border: 1px solid rgb(255 255 255 / 0.16);
+  padding: var(--sp-3);
+}
+
+.figureLabel {
+  font-family: var(--font-mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted-on-plate);
+}
+
+.figureValue {
+  font-family: var(--font-display);
+  font-size: var(--t-figure);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: var(--accent-on-plate);
+  margin-top: 0.6rem;
+}
+
+.figureUnit {
+  font-family: var(--font-mono);
+  font-size: var(--t-13);
+  color: var(--fg-muted-on-plate);
+  margin-top: 0.5rem;
+}
+
+.notes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.note {
+  font-size: var(--t-15);
+  line-height: 1.6;
+  color: var(--fg-muted-on-plate);
+  text-wrap: pretty;
+}
+
+@media (max-width: 900px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .metric {
+    padding-right: var(--sp-2);
+  }
+}

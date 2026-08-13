@@ -1,0 +1,217 @@
+.hero {
+  padding-block: clamp(2rem, 4.5vw, 4rem) clamp(2.25rem, 4vw, 3.25rem);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.kicker {
+  margin-bottom: clamp(1rem, 2.5vw, 1.75rem);
+}
+
+/* The monument. Large, but never alone — the rule and the evidence
+   grid sit directly beneath it inside the same viewport. */
+.title {
+  font-size: var(--t-hero);
+  line-height: 0.84;
+  letter-spacing: -0.05em;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+}
+
+.line {
+  display: block;
+}
+
+/* Signature moment: a single mask reveal on load, nothing else. */
+:global(html[data-motion='on']) .line {
+  animation: rise 620ms var(--ease-out) both;
+  clip-path: inset(0 0 -0.2em 0);
+}
+
+:global(html[data-motion='on']) .line:nth-child(2) {
+  animation-delay: 90ms;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(0.42em);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html[data-motion='on']) .line {
+    animation: none;
+    clip-path: none;
+  }
+}
+
+.rule {
+  height: 2px;
+  background: var(--rule-strong);
+  border: 0;
+  margin: clamp(1.25rem, 2.5vw, 1.75rem) 0 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  padding-top: clamp(1.25rem, 2.5vw, 1.75rem);
+  align-items: start;
+}
+
+.lede {
+  font-size: clamp(1.25rem, 2.1vw, 1.75rem);
+  line-height: 1.42;
+  letter-spacing: -0.015em;
+  color: var(--fg);
+  max-width: 26ch;
+  text-wrap: pretty;
+  margin: 0;
+}
+
+.now {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin: 0;
+  max-width: 46ch;
+}
+
+.nowItem dd {
+  margin: 0.4rem 0 0;
+  font-size: var(--t-15);
+  line-height: 1.6;
+  color: var(--fg-secondary);
+}
+
+.nowItem strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.inline {
+  color: var(--accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.inline:hover {
+  border-bottom-color: var(--accent);
+}
+
+.foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1) var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.primary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 1.5rem;
+  background: var(--fg);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: var(--t-13);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.primary:hover {
+  transform: translateY(-1px);
+}
+
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  font-family: var(--font-mono);
+  font-size: var(--t-13);
+  color: var(--fg-muted);
+  border-bottom: 1px solid transparent;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.secondary:hover {
+  color: var(--fg);
+  border-bottom-color: var(--accent);
+}
+
+.scroll {
+  font-family: var(--font-mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--sp-3);
+  }
+
+  .lede {
+    max-width: 30ch;
+  }
+}
+
+@media (max-width: 560px) {
+  .foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Stack the exits so each is a full-width target. The <li> has to
+     stretch too — width on the <a> alone does nothing inside a flex row. */
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+  }
+
+  .actions li {
+    width: 100%;
+  }
+
+  .primary {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .secondary {
+    justify-content: flex-start;
+    min-height: 44px;
+  }
+
+  .scroll {
+    display: none;
+  }
+}

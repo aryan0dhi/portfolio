@@ -1,0 +1,42 @@
+.head {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+}
+
+.kicker {
+  margin-bottom: var(--sp-2);
+}
+
+.title {
+  max-width: 16ch;
+}
+
+.summary {
+  margin-top: var(--sp-3);
+  font-size: var(--t-19);
+  line-height: 1.6;
+  color: var(--fg-secondary);
+  max-width: 54ch;
+  text-wrap: pretty;
+}
+
+.meta {
+  margin-top: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+}
+
+.plate .summary {
+  color: var(--fg-muted-on-plate);
+}
+
+.plate .meta {
+  color: var(--fg-muted-on-plate);
+}

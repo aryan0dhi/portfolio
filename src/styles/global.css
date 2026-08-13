@@ -1,0 +1,368 @@
+/* ============================================================
+   Design tokens — "Monument"
+   Warm stone ground, single brass accent. No second hue.
+   Contrast verified: see comments for measured ratios.
+   ============================================================ */
+
+:root {
+  /* --- Neutrals (warm stone, deliberately not grey) --- */
+  --stone-50: #fafaf9;
+  --stone-100: #f5f5f4;
+  --stone-200: #d6d3d1;
+  --stone-300: #bfbab6;
+  --stone-400: #a8a29e;
+  --stone-500: #78716c;
+  --stone-700: #44403c;
+  --stone-900: #1c1917;
+  --ink: #0c0a09;
+
+  /* --- The single accent --- */
+  --brass: #a16207;
+  --brass-lt: #d6b25e;
+
+  /* --- Semantic (light theme) --- */
+  --bg: var(--stone-50);
+  --bg-raised: #ffffff;
+  --bg-plate: var(--stone-900);
+  --fg: var(--ink); /* 18.92:1 */
+  --fg-secondary: var(--stone-700); /* 9.84:1 */
+  --fg-muted: var(--stone-500); /* 4.59:1 — passes body */
+  --fg-on-plate: var(--stone-50);
+  --fg-muted-on-plate: var(--stone-400);
+  --accent: var(--brass); /* 4.71:1 — passes body */
+  --accent-on-plate: var(--brass-lt);
+  /* Text sitting ON the accent. Must flip with the theme: near-white on
+     dark brass is 4.84:1, but on light brass-lt it collapses to 1.99:1. */
+  --on-accent: #fffdf7;
+  --rule: var(--stone-200);
+  --rule-strong: var(--ink);
+
+  /* --- Elevation (borrowed from Dimensional Layering, used only in Vaila) --- */
+  --elev-1: 0 1px 2px rgb(12 10 9 / 0.06), 0 2px 6px -2px rgb(12 10 9 / 0.08);
+  --elev-2: 0 2px 4px rgb(12 10 9 / 0.06), 0 8px 20px -6px rgb(12 10 9 / 0.12);
+  --elev-3: 0 4px 8px rgb(12 10 9 / 0.07), 0 18px 40px -10px rgb(12 10 9 / 0.18);
+  --elev-4: 0 6px 12px rgb(12 10 9 / 0.08), 0 30px 64px -16px rgb(12 10 9 / 0.24);
+
+  /* --- Type --- */
+  --font-display: 'Outfit Variable', 'Outfit', system-ui, sans-serif;
+  --font-body: 'Work Sans Variable', 'Work Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Strict modular scale — nothing in between */
+  --t-11: 0.6875rem;
+  --t-13: 0.8125rem;
+  --t-15: 0.9375rem;
+  --t-17: 1.0625rem;
+  --t-19: 1.1875rem;
+  --t-24: 1.5rem;
+  --t-34: 2.125rem;
+  --t-54: 3.375rem;
+  --t-104: 6.5rem;
+  --t-172: 10.75rem;
+
+  /* Fluid display sizes */
+  --t-hero: clamp(2.75rem, 9.2vw, 8.25rem);
+  --t-section: clamp(2.125rem, 5.4vw, 6.5rem);
+  --t-figure: clamp(2.75rem, 6vw, 4.75rem);
+
+  /* --- Space (8px base) --- */
+  --sp-1: 0.5rem;
+  --sp-2: 1rem;
+  --sp-3: 1.5rem;
+  --sp-4: 2rem;
+  --sp-5: 3rem;
+  --sp-6: 4rem;
+  --sp-7: 6rem;
+  --sp-8: 8rem;
+  --sp-9: 10rem;
+  --section-y: clamp(4.5rem, 10vw, 10rem);
+
+  /* --- Layout --- */
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+  --measure: 64ch;
+  --maxw: 84rem;
+
+  /* --- Motion --- */
+  --dur-fast: 160ms;
+  --dur-mid: 240ms;
+  --dur-reveal: 380ms;
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* --- Dark theme -------------------------------------------------
+   Not a naive inversion: muted text moves stone-500 -> stone-400
+   (3.96:1 FAIL -> 7.52:1 PASS) and the accent moves brass -> brass-lt
+   (3.85:1 FAIL -> 9.39:1 PASS).
+   ---------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12100f;
+    --bg-raised: #1a1817;
+    --bg-plate: #000000;
+    --fg: var(--stone-50);
+    --fg-secondary: var(--stone-200);
+    --fg-muted: var(--stone-400);
+    --accent: var(--brass-lt);
+    --accent-on-plate: var(--brass-lt);
+    --on-accent: #1c1917; /* 8.65:1 on brass-lt */
+    --rule: #302b28;
+    --rule-strong: var(--stone-200);
+    --elev-1: 0 1px 2px rgb(0 0 0 / 0.5);
+    --elev-2: 0 4px 14px rgb(0 0 0 / 0.55);
+    --elev-3: 0 10px 30px rgb(0 0 0 / 0.6);
+    --elev-4: 0 20px 52px rgb(0 0 0 / 0.7);
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #12100f;
+  --bg-raised: #1a1817;
+  --bg-plate: #000000;
+  --fg: var(--stone-50);
+  --fg-secondary: var(--stone-200);
+  --fg-muted: var(--stone-400);
+  --accent: var(--brass-lt);
+  --accent-on-plate: var(--brass-lt);
+  --on-accent: #1c1917; /* 8.65:1 on brass-lt */
+  --rule: #302b28;
+  --rule-strong: var(--stone-200);
+  --elev-1: 0 1px 2px rgb(0 0 0 / 0.5);
+  --elev-2: 0 4px 14px rgb(0 0 0 / 0.55);
+  --elev-3: 0 10px 30px rgb(0 0 0 / 0.6);
+  --elev-4: 0 20px 52px rgb(0 0 0 / 0.7);
+}
+
+:root[data-theme='light'] {
+  --bg: #fafaf9;
+  --bg-raised: #ffffff;
+  --bg-plate: #1c1917;
+  --fg: #0c0a09;
+  --fg-secondary: #44403c;
+  --fg-muted: #78716c;
+  --accent: #a16207;
+  --accent-on-plate: #d6b25e;
+  --on-accent: #fffdf7; /* 4.84:1 on brass */
+  --rule: #d6d3d1;
+  --rule-strong: #0c0a09;
+  --elev-1: 0 1px 2px rgb(12 10 9 / 0.06), 0 2px 6px -2px rgb(12 10 9 / 0.08);
+  --elev-2: 0 2px 4px rgb(12 10 9 / 0.06), 0 8px 20px -6px rgb(12 10 9 / 0.12);
+  --elev-3: 0 4px 8px rgb(12 10 9 / 0.07), 0 18px 40px -10px rgb(12 10 9 / 0.18);
+  --elev-4: 0 6px 12px rgb(12 10 9 / 0.08), 0 30px 64px -16px rgb(12 10 9 / 0.24);
+}
+
+/* ============================================================
+   Reset + base
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--t-17);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition:
+    background-color var(--dur-mid) var(--ease-out),
+    color var(--dur-mid) var(--ease-out);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+/* Visible focus for keyboard users — never removed, only replaced. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* ============================================================
+   Shared primitives
+   ============================================================ */
+
+.shell {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--t-11);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.eyebrow--muted {
+  color: var(--fg-muted);
+}
+
+.lede {
+  font-size: var(--t-24);
+  line-height: 1.5;
+  color: var(--fg-secondary);
+  max-width: 34ch;
+  text-wrap: pretty;
+}
+
+.body {
+  font-size: var(--t-17);
+  line-height: 1.68;
+  color: var(--fg-secondary);
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Section heading — monumental but never alone on screen. */
+.section-title {
+  font-size: var(--t-section);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.rule {
+  height: 1px;
+  background: var(--rule);
+  border: 0;
+  margin: 0;
+}
+
+.rule--strong {
+  height: 2px;
+  background: var(--rule-strong);
+}
+
+.rule--brass {
+  height: 2px;
+  background: var(--accent);
+}
+
+/* Skip link */
+.skip {
+  position: absolute;
+  left: var(--sp-2);
+  top: var(--sp-2);
+  z-index: 200;
+  transform: translateY(-200%);
+  background: var(--fg);
+  color: var(--bg);
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-13);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.skip:focus {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   Reveal — the only scroll motion on the site.
+   Elements start hidden ONLY when JS has marked the root as ready,
+   so a no-JS or failed-hydration render still shows all content.
+   ============================================================ */
+
+[data-reveal] {
+  opacity: 1;
+}
+
+html[data-motion='on'] [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+}
+
+html[data-motion='on'] [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  html[data-motion='on'] [data-reveal],
+  html[data-motion='on'] [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

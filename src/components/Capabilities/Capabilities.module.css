@@ -1,0 +1,157 @@
+.section {
+  padding-block: var(--section-y);
+  border-top: 1px solid var(--rule);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4.5vw, 3.5rem);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.title {
+  max-width: 14ch;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border-top: 2px solid var(--rule-strong);
+  margin: 0;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-3) var(--sp-4) 0;
+  min-width: 0;
+}
+
+.group + .group {
+  border-left: 1px solid var(--rule);
+  padding-left: var(--sp-3);
+}
+
+.groupName {
+  font-family: var(--font-mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.groupItems {
+  margin: 0;
+}
+
+.groupItems ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.item {
+  font-size: var(--t-17);
+  line-height: 1.4;
+  color: var(--fg-secondary);
+}
+
+.education {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  border-top: 1px solid var(--rule);
+  padding-top: var(--sp-3);
+  align-items: start;
+}
+
+.eduSchool {
+  font-family: var(--font-display);
+  font-size: var(--t-24);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.eduDegree {
+  font-size: var(--t-15);
+  color: var(--fg-secondary);
+  margin-top: 0.35rem;
+  text-wrap: pretty;
+}
+
+.eduFacts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-2);
+  margin: 0;
+}
+
+.eduFacts dt {
+  font-family: var(--font-mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.eduFacts dd {
+  margin: 0.4rem 0 0;
+  font-size: var(--t-15);
+  color: var(--fg);
+}
+
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .group:nth-child(odd) {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .group:nth-child(even) {
+    border-left: 1px solid var(--rule);
+    padding-left: var(--sp-3);
+  }
+
+  .group:nth-child(n + 3) {
+    border-top: 1px solid var(--rule);
+  }
+}
+
+@media (max-width: 780px) {
+  .education {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .group,
+  .group:nth-child(even) {
+    border-left: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: var(--sp-3);
+  }
+
+  .group + .group {
+    border-top: 1px solid var(--rule);
+  }
+
+  .eduFacts {
+    grid-template-columns: 1fr 1fr;
+  }
+}

@@ -1,0 +1,73 @@
+.section {
+  padding-block: var(--section-y);
+  border-top: 1px solid var(--rule);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* A vertical progression: each step indents its rule a little further,
+   so the method reads as a sequence rather than a list of equals. */
+.method {
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid var(--rule-strong);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+  gap: clamp(1rem, 4vw, 3rem);
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: baseline;
+}
+
+.stepHead {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+
+.stepNum {
+  font-size: var(--t-11);
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  flex: none;
+}
+
+.stepName {
+  font-family: var(--font-display);
+  font-size: var(--t-24);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.stepBody {
+  font-size: var(--t-17);
+  line-height: 1.6;
+  color: var(--fg-secondary);
+  text-wrap: pretty;
+}
+
+.outcome {
+  font-size: var(--t-19);
+  line-height: 1.55;
+  color: var(--fg);
+  max-width: 46ch;
+  border-left: 2px solid var(--accent);
+  padding-left: var(--sp-3);
+  text-wrap: pretty;
+}
+
+@media (max-width: 780px) {
+  .step {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+}
