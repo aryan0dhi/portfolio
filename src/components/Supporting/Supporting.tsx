@@ -1,39 +1,46 @@
 import { footnote, supporting } from '../../content/resume';
 import styles from './Supporting.module.css';
 
+/**
+ * Appendix — further work that supports the four cases without competing
+ * with them. Compact rows; the dropped-from-résumé role sits as a literal
+ * footnote, honest about its weight.
+ */
 export function Supporting() {
   return (
-    <section id="also" className={styles.section} aria-labelledby="also-title">
-      <div className={`shell ${styles.inner}`}>
-        <h2 id="also-title" className={`eyebrow ${styles.title}`}>
-          Also
-        </h2>
+    <section id="supporting" className="case shell" aria-labelledby="supporting-title">
+      <p className="eyebrow" data-reveal>
+        Appendix · Further work
+      </p>
+      <h2 id="supporting-title" className={`${styles.title}`} data-reveal>
+        Also on the record.
+      </h2>
 
-        <ul className={styles.list}>
-          {supporting.map((item) => (
-            <li key={item.id} className={styles.item} data-reveal>
-              <div className={styles.itemHead}>
-                <h3 className={styles.name}>{item.name}</h3>
-                <p className={styles.meta}>
-                  <span>{item.role}</span>
-                  <span aria-hidden="true">·</span>
-                  <span>{item.period}</span>
-                </p>
-              </div>
-              <p className={styles.body}>{item.body}</p>
-            </li>
-          ))}
-        </ul>
+      <ol className={styles.list}>
+        {supporting.map((item, i) => (
+          <li
+            key={item.id}
+            className={styles.entry}
+            data-reveal
+            data-reveal-delay={((i % 2) + 1) as 1 | 2}
+          >
+            <div className={styles.entryHead}>
+              <h3 className={styles.name}>{item.name}</h3>
+              <span className={styles.role}>{item.role}</span>
+            </div>
+            <div className={styles.meta}>
+              <span>{item.meta}</span>
+              <span className={styles.period}>{item.period}</span>
+            </div>
+            <p className={styles.body}>{item.body}</p>
+          </li>
+        ))}
+      </ol>
 
-        {/* Deliberately the smallest entry on the page. */}
-        <p className={styles.footnote} data-reveal>
-          <span className={styles.footnoteName}>{footnote.name}</span>
-          <span className={styles.footnoteMeta}>
-            {footnote.role} · {footnote.period}
-          </span>
-          <span className={styles.footnoteBody}>{footnote.body}</span>
-        </p>
-      </div>
+      <p className={`footnote ${styles.foot}`} data-reveal>
+        <span className="mark">†</span> {footnote.name}, {footnote.role} ({footnote.period}) —{' '}
+        {footnote.body}
+      </p>
     </section>
   );
 }

@@ -26,8 +26,8 @@ export function App() {
         <Forecasting />
         <Supporting />
         <Capabilities />
-        <Contact />
       </main>
+      <Contact />
     </>
   );
 }

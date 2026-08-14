@@ -1,9 +1,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-// Upright weight axis only — the site uses no italics, so the italic
-// variable files are left out of the bundle entirely.
-import '@fontsource-variable/outfit/wght.css';
+// Display serif is Fraunces with the optical-size axis (standard = wght + opsz),
+// so large headings pick up higher contrast and fine detail automatically.
+// No italics anywhere on the site, so the italic variable files stay out of the bundle.
+import '@fontsource-variable/fraunces/standard.css';
 import '@fontsource-variable/work-sans/wght.css';
 import '@fontsource-variable/jetbrains-mono/wght.css';
 import './styles/global.css';

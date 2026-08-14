@@ -1,99 +1,250 @@
-.section {
-  padding-block: var(--section-y);
-  border-top: 1px solid var(--rule);
-}
-
-.inner {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(2.5rem, 6vw, 5rem);
-}
-
-.top {
+/* Intro row — summary + stack on the left, launch card on the right.
+   This fills what used to be dead space beside the narrow summary. */
+.intro {
+  margin-top: clamp(1.6rem, 4vw, 2.4rem);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-  gap: clamp(2rem, 5vw, 4.5rem);
-  align-items: center;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.85fr);
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  align-items: start;
 }
-
-.link {
-  color: var(--accent);
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--dur-fast) var(--ease-out);
-}
-
-.link:hover {
-  border-bottom-color: var(--accent);
-}
-
-.composition {
-  min-width: 0;
-}
-
-.pillars {
+.introMain {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.5rem, 3vw, 3rem);
-  border-top: 2px solid var(--rule-strong);
-  padding-top: var(--sp-3);
+  gap: clamp(1.5rem, 3vw, 2.2rem);
+  align-content: start;
 }
-
-.pillar {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.pillarNum {
-  font-size: var(--t-11);
-  letter-spacing: 0.14em;
-  color: var(--accent);
-}
-
-.pillarLabel {
-  font-family: var(--font-display);
+.summary {
+  max-width: 52ch;
   font-size: var(--t-19);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin: 0.5rem 0 0.5rem;
+  color: var(--ink-2);
 }
 
-.pillarBody {
-  font-size: var(--t-15);
-  line-height: 1.62;
-  color: var(--fg-secondary);
-  text-wrap: pretty;
+.builtWith {
+  display: grid;
+  gap: 0.85rem;
 }
-
+.builtHead {
+  font-family: var(--font-mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
 .stack {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-
 .chip {
   font-family: var(--font-mono);
-  font-size: var(--t-11);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-  border: 1px solid var(--rule);
-  padding: 0.4rem 0.7rem;
+  font-size: var(--t-12);
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  border: 1px solid var(--hairline-2);
+  border-radius: 20px;
+  padding: 0.32rem 0.75rem;
+  background: var(--paper-raised);
 }
 
-@media (max-width: 1000px) {
-  .top {
-    grid-template-columns: 1fr;
-    gap: var(--sp-4);
-  }
+/* Launch card — App Store "coming soon" + notify + visit */
+.launch {
+  display: grid;
+  gap: 1.2rem;
+  align-content: start;
+  padding: clamp(1.4rem, 3vw, 1.8rem);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  background: var(--paper-raised);
+  box-shadow: var(--elev-1);
+}
 
-  .pillars {
-    grid-template-columns: 1fr;
-    gap: var(--sp-3);
-  }
+/* App Store badge — Apple mark + stacked label, inverted plate */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  align-self: start;
+  padding: 0.6rem 1rem;
+  border-radius: 11px;
+  background: var(--ink);
+  color: var(--paper);
+}
+.apple {
+  width: 1.55rem;
+  height: 1.55rem;
+  fill: var(--paper);
+  flex: none;
+}
+.badgeText {
+  display: grid;
+  line-height: 1.05;
+}
+.badgeText small {
+  font-family: var(--font-body);
+  font-size: var(--t-11);
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+}
+.badgeText strong {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-19);
+  color: var(--paper);
+  letter-spacing: -0.01em;
+}
 
-  .pillar + .pillar {
-    border-top: 1px solid var(--rule);
-    padding-top: var(--sp-3);
+/* Notify affordance */
+.notify {
+  display: grid;
+  gap: 0.6rem;
+}
+.notifyLabel {
+  font-family: var(--font-mono);
+  font-size: var(--t-11);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.notifyRow {
+  display: flex;
+  gap: 0.5rem;
+}
+.notifyInput {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  font-size: var(--t-15);
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--hairline-2);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.notifyInput::placeholder {
+  color: var(--ink-faint);
+}
+.notifyInput:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+}
+.notifyBtn {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--t-13);
+  letter-spacing: 0.04em;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out);
+}
+.notifyBtn:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+.visit {
+  font-family: var(--font-mono);
+  font-size: var(--t-13);
+  letter-spacing: 0.02em;
+  color: var(--accent-link);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  padding-bottom: 2px;
+  justify-self: start;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.visit:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* Cross-section band — strata now span the full band width */
+.band {
+  margin-top: clamp(2rem, 5vw, 3.2rem);
+  padding: clamp(1.8rem, 4vw, 3rem);
+  background: var(--paper-raised);
+}
+.strata {
+  display: grid;
+  gap: 0.9rem;
+  perspective: 1200px;
+}
+.layer {
+  position: relative;
+  border-radius: 12px;
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--elev-2);
+  transform: translateX(calc(var(--i) * 0.9rem));
+  transition:
+    transform var(--dur-mid) var(--ease-editorial),
+    box-shadow var(--dur-mid) var(--ease-editorial);
+}
+.strata:hover .layer {
+  transform: translateX(0);
+  box-shadow: var(--elev-3);
+}
+.layerTop {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--hairline));
+}
+.layerEdge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 12px 0 0 12px;
+  background: var(--hairline-2);
+}
+.layerTop .layerEdge {
+  background: var(--accent);
+}
+.layerBody {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  padding: 1.2rem 1.4rem 1.3rem;
+}
+.layerNo {
+  font-family: var(--font-mono);
+  font-size: var(--t-12);
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  padding-top: 0.35rem;
+}
+.layerLabel {
+  font-family: var(--font-display);
+  font-size: var(--t-22);
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+}
+.layerText {
+  margin-top: 0.35rem;
+  font-size: var(--t-15);
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 68ch;
+}
+
+@media (max-width: 860px) {
+  .intro {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+}
+@media (max-width: 460px) {
+  .layer {
+    transform: none;
+  }
+  .layerBody {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+  .notifyRow {
+    flex-direction: column;
+  }
+  .notifyBtn {
+    width: 100%;
   }
 }

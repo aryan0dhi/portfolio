@@ -4,87 +4,103 @@ Handoff doc for picking this up in another Claude Code chat. Last updated 2026-0
 
 ## What this is
 Personal SWE portfolio for Aryan Dhillon (Purdue Computer Engineering, '27).
-Single-page site, current design direction: **"Monument"** — restrained, typographic,
-warm-stone + single brass accent. Impact comes from type scale and one moment of real
-depth (Vaila), not from lots of effects.
+Single-page site. Current design direction: **"Monograph"** — a designed technical
+journal. Warm-neutral document paper, near-black ink, one **blueprint-blue** accent
+(deliberately NOT cream/terracotta). Fraunces (serif display) sets the voice; Work Sans
+reads the body; JetBrains Mono carries data, folios, and labels.
+
+Impact comes from editorial typography (recruiter scan speed) plus **one live "instrument"
+per project** (the B+A hybrid direction the user chose from a 4-concept exploration).
 
 ## Stack & how to run
-- **React 19 + TypeScript + Vite** (migrated from an earlier Next.js version — see History).
-- Fonts via `@fontsource-variable`: Outfit (display), Work Sans (body), JetBrains Mono (mono).
-- No UI/animation libraries; hand-rolled CSS + a few hooks.
+- **React 19 + TypeScript + Vite** (no UI/animation libraries; hand-rolled CSS + hooks).
+- Fonts via `@fontsource-variable`: **Fraunces** (standard = wght + opsz), Work Sans, JetBrains Mono.
 
 ```bash
 cd ~/website
-npm run dev        # → http://localhost:5173  (Vite; port pinned in .claude/launch.json)
+npm run dev        # → http://localhost:5173  (Vite; autoPort in .claude/launch.json)
 npm run typecheck  # tsc --noEmit
 npm run lint       # eslint . --max-warnings 0
 npm run build      # tsc --noEmit && vite build
 ```
-All three gates (typecheck / lint / build) pass. Last build: ~69 kB gzip JS, ~8.7 kB CSS,
-Latin-only font subsets fetched at runtime.
+All three gates pass. Last build: ~73 kB gzip JS, ~9.5 kB gzip CSS.
 
 ## Project layout
 ```
-~/website
-├── index.html
-├── src/
-│   ├── main.tsx                 entry
-│   ├── App.tsx                  section order (see below)
-│   ├── content/resume.ts        ← single source of truth for all copy/data
-│   ├── hooks/
-│   │   ├── useActiveSection.ts  nav active-state on scroll
-│   │   ├── useReveal.ts         scroll-reveal
-│   │   └── useTheme.ts          dark/light theme
-│   ├── styles/global.css        design tokens + base (Monument palette, type scale)
-│   └── components/
-│       ├── Nav/  Hero/  Vaila/  Garmin/  KvStore/
-│       ├── Forecasting/  Supporting/  Capabilities/  Contact/
-│       └── SectionHead/         shared section header
-├── public/Aryan-Dhillon-Resume.pdf   (+ avatar)
-└── vite.config.ts, tsconfig.json, eslint.config.js, package.json
+~/website/src/
+├── main.tsx                 entry (font imports here)
+├── App.tsx                  section order
+├── content/resume.ts        ← single source of truth for all copy/data
+├── hooks/
+│   ├── useActiveSection.ts  nav active-state on scroll
+│   ├── useReveal.ts         scroll-reveal ([data-reveal] → .is-visible)
+│   ├── useTheme.ts          dark/light theme (stamps data-theme)
+│   └── useCanvasScene.ts    shared canvas plumbing for every instrument
+├── styles/global.css        design tokens + "case" scaffold primitives
+└── components/
+    ├── Nav/ Hero/ Vaila/ Garmin/ KvStore/ Forecasting/ Supporting/ Capabilities/ Contact/
 ```
 
-Section order (`src/App.tsx`): **Nav → Hero → Vaila → Garmin → KvStore → Forecasting → Supporting → Capabilities → Contact.**
+Section order (`src/App.tsx`): **Nav → main[ Hero → Vaila → Garmin → KvStore →
+Forecasting → Supporting → Capabilities ] → Contact** (Contact is the closing `<footer>`,
+outside `<main>`).
 
 ## Design system (`src/styles/global.css`)
-- **Palette:** warm stone neutrals (`--stone-*`, `--ink`) + one accent (`--brass` / `--brass-lt`). No second hue.
-- **Contrast is tracked in comments with measured ratios.** Key one: `--on-accent` (text on the brass pill)
-  flips with theme — 8.65:1 dark / 4.84:1 light — because near-white on light brass collapsed to 1.99:1.
-- **Type:** strict modular scale (`--t-11 … --t-172`) + fluid display sizes (`--t-hero`, `--t-section`, `--t-figure`). Nothing in between.
-- **Elevation** (`--elev-1..4`) is used **only in Vaila** — the one place dimensional depth appears.
-- Dark/light theme via `useTheme` (semantic tokens re-bind per theme).
+- **Palette:** `--paper` / `--ink` neutrals + one `--accent` (blueprint blue, per-theme:
+  #1c3f6e light / #8db0e4 dark). Dark instruments use a `--plate-*` set (near-black grounds,
+  `--plate-signal` teal phosphor, `--plate-amber`). Contrast ratios noted inline.
+- **Type:** modular scale (`--t-11 … --t-64`) + fluid display (`--t-hero`, `--t-section`,
+  `--t-case`, `--t-figure`). `--t-hero` is capped at 5rem so the title spread fits one viewport.
+- **`.case` scaffold** (global primitives): `.case-folio`, `.case-head` (reading column +
+  `.case-rail` meta), `.band` / `.band--plate` (the instrument band). Every project reuses this
+  frame; only the instrument inside differs.
+- **`--elev-*`** is used **only in Vaila** (the layered cross-section).
+- Dark/light via `useTheme`; both themes designed (not inverted).
 
-## The four distinct section treatments (no card reused)
-- **Garmin** — four-stage verification band (requirements → embedded C → test → independent review); `8` at display scale (8 formal change requests, DO-178B / GTS 8x0 v5.03).
-- **Vaila** — the only dimensional layering on the site: three overlapping elevation planes built from markup.
-- **KvStore** (Distributed KV Store, Java) — the site's only table, on an inverted dark plate; `1.9M` WAL records/sec called out.
-- **Forecasting** (The Data Mine / John Deere) — five-step method progression, deliberately **no numbers** (résumé reports none).
-- **Supporting** / **Capabilities** — the lighter roles/skills layer.
+## The five distinct treatments (no card reused)
+- **Hero** — title spread: Fraunces thesis, disciplines lede, numbered **Contents** index
+  (doubles as recruiter nav), faint drafting grid + crop marks.
+- **Vaila** (Case 01) — layered product cross-section (Engine/Integrations/Infrastructure)
+  with real depth; the only place `--elev` appears.
+- **Garmin** (Case 02) — four-stage verification progression + a live **TCAS traffic scope**
+  (`GarminScope.tsx`, canvas): range rings, sweep, traffic diamonds w/ altitude tags. `8` figure.
+- **KvStore** (Case 03) — dark monitoring plate: live **throughput trace** (`KvThroughput.tsx`),
+  p50/p99 latencies, and the site's one **measurements table**. `1.9M` WAL figure.
+- **Forecasting** (Case 04) — probabilistic **fan chart** (`ForecastFan.tsx`, canvas, theme-aware
+  via CSS vars): observed history → median + widening 90% PI. Deliberately **no numbers**
+  (résumé reports none); caption marks it illustrative.
+- **Supporting / Capabilities / Contact** — the lighter appendix / colophon layer.
+
+## Instruments — shared plumbing
+`useCanvasScene(draw, opts)` handles DPR scaling, a ResizeObserver refit, **pauses the rAF
+loop when the canvas is off-screen**, and honors `prefers-reduced-motion` (single static frame).
+Each instrument only writes its `draw(ctx, w, h, t, elapsed, reduced)` callback.
 
 ## Content = `src/content/resume.ts`
 Edit copy/data there, not in components. Canonical résumé facts live in Claude memory
-(`resume-facts.md`) — current is **v7** (2026-08-13). Highlights: Garmin DO-178B GTS 8x0 v5.03,
-8 change requests; **Vaila = Founder & CEO** (Work Experience, not Projects), not yet App-Store-launched;
-Distributed KV store 65K ops/sec across 32 clients; Investment Analytics = Sept 2025.
-(Handshake AI was dropped in v6 — keep only if a compressed line is needed.)
+(`resume-facts.md`) — **v7** (2026-08-13). Nothing embellished: Garmin DO-178B / GTS 8x0 v5.03,
+8 change requests; Vaila = Founder & CEO, prepared-for-launch (not launched); KV store 65K
+ops/sec / p50 119µs / p99 238µs / 1.9M WAL rec/sec; John Deere reports no numbers.
+`profile.status` and `profile.thesis` and `worksIndex` were added for the hero.
 
-## Recent QA / defects fixed
-1. Contrast: brass pill text was 1.99:1 in dark → new theme-flipping `--on-accent` (8.65 dark / 4.84 light).
-2. Dark-theme text: `stone-500` muted (3.96) + `brass` accent (3.85) failed → moved to `stone-400` (7.52) / `brass-lt` (9.39).
-3. Occlusion: Vaila availability rows ran under the device panel → text now clears while the surface still overlaps for depth.
-4. Mobile CTA: "Download résumé" not full-width — `width:100%` was on the `<a>` instead of its `<li>`.
-5. Hero pulled 1006px → 790px so the résumé CTA + email + GitHub sit above the fold at 1440×900.
-Every section was checked at 1440 / 1280 / 768 / 390 in both themes (workaround pass — verify visually yourself).
+## Verification done (2026-08-13)
+typecheck / lint / build all pass. Rendered in-browser: hero (both themes), all four
+instruments paint (canvas pixel-sampled), no console errors, no horizontal overflow at
+mobile (372) and desktop (1440 geometry: shell 1312 centered, two columns). NOTE: the in-app
+Browser pane runs a **372px CSS viewport at 2× DPR** and pins screenshots at scroll offsets —
+use hash-nav + `element.scrollIntoView` + force `.is-visible` on `[data-reveal]`, and trust
+`getBoundingClientRect` over thumbnails.
 
 ## Open items / blockers
-- **Not deployed. Commits are LOCAL only** (2 commits: baseline + Monument rebuild). Nothing pushed.
-- **Push is blocked:** the Claude GitHub App lacks access to `aryan0dhi/portfolio`.
-  Grant it at https://github.com/settings/installations, then push → deploy (Vercel/Netlify) for a shareable URL.
-- Not built yet (from the earlier roadmap): real **testimonial quotes**, a **"Now"** entry, a **blog**.
-- A `/schedule` routine was requested but never created (same GitHub-access blocker).
+- **Not deployed. Commits are LOCAL only.** The Monograph rebuild is uncommitted working-tree
+  changes on top of the earlier commits.
+- **Push was blocked** previously: the Claude GitHub App lacked access to `aryan0dhi/portfolio`.
+  Grant at https://github.com/settings/installations, then push → deploy (Vercel/Netlify).
+- Desktop (>900px) verified by geometry only — do a real wide-viewport visual pass when possible.
+- Not built: testimonial quotes, a "Now" entry, a blog.
 
-## History (why it looks different from earlier chats)
-Originally scaffolded as a Next.js App Router site (signal/circuit identity: animated circuit hero,
-glass cards, a scroll-driven "signal" timeline). It was then **rebuilt from scratch as this Vite +
-"Monument" version** (commit `bfe964c`). If you see references to `app/`, a `SignalJourney`, `CircuitField`,
-or a Cmd+K palette, that was the old Next.js version — **not** in the current `src/` tree.
+## History
+Next.js signal/circuit version → Vite "Monument" (black + vermillion, typographic) →
+this **"Monograph"** rebuild (blueprint-blue technical journal + per-project live instruments).
+If you see `ParticleField`, `formations.ts`, `SectionHead`, or `ProductComposition`, those were
+removed in the Monograph rebuild.

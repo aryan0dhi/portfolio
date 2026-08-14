@@ -1,145 +1,190 @@
-/* The one inverted section on the site. Systems work gets the plate
-   because the numbers are the argument, and they read hardest here. */
-
-.section {
-  padding-block: var(--section-y);
-  background: var(--bg-plate);
-  color: var(--fg-on-plate);
+.summary {
+  margin-top: 0.4rem;
+  max-width: 58ch;
+  font-size: var(--t-17);
+  color: var(--ink-2);
 }
 
-.inner {
+.plate {
+  padding: clamp(1.8rem, 4vw, 3rem);
+}
+
+/* ---- The request data path ---- */
+.pathHead {
+  font-family: var(--font-mono);
+  font-size: var(--t-13);
+  color: var(--plate-fg-muted);
+  letter-spacing: 0.01em;
+  margin-bottom: 1.1rem;
+}
+
+.flow {
   display: flex;
-  flex-direction: column;
-  gap: clamp(2.5rem, 5vw, 4rem);
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.55rem;
+}
+.arrow {
+  font-family: var(--font-mono);
+  color: var(--plate-line);
+  font-size: var(--t-17);
+  line-height: 1;
 }
 
-.section :global(.eyebrow) {
-  color: var(--accent-on-plate);
+/* Stages are plain buttons — no boxes. Emphasis comes from weight,
+   colour, and a single accent underline on the active stage. */
+.stage {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.1rem;
+  font-family: var(--font-body);
+  font-size: var(--t-17);
+  font-weight: 500;
+  color: var(--plate-fg-muted);
+  border-bottom: 1.5px solid transparent;
+  border-radius: 0;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+.stage:hover,
+.stageActive {
+  color: var(--plate-fg);
+  border-bottom-color: var(--plate-line);
+}
+.stageDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.55;
+  flex: none;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+.stage:hover .stageDot,
+.stageActive .stageDot {
+  opacity: 1;
+}
+/* The hash table — the core. The one place teal appears in the path. */
+.stageCore .stageDot {
+  background: var(--plate-signal);
+  opacity: 1;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--plate-signal) 18%, transparent);
+}
+.stageCore.stageActive {
+  border-bottom-color: var(--plate-signal);
 }
 
-.body {
+.flowDetail {
+  margin-top: 1.1rem;
+  max-width: 62ch;
+  font-size: var(--t-15);
+  line-height: 1.6;
+  color: var(--plate-fg-muted);
+  min-height: 3.1em; /* reserve space so the caption swap doesn't reflow */
+}
+.flowStage {
+  color: var(--plate-fg);
+  font-weight: 600;
+}
+
+.divide {
+  height: 1px;
+  background: var(--plate-line);
+  border: 0;
+  margin: clamp(1.8rem, 4vw, 2.6rem) 0;
+}
+
+/* ---- Evidence: benchmark + implementation, in open space ---- */
+.evidence {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(1.8rem, 5vw, 4rem);
   align-items: start;
 }
 
-/* Wide content scrolls inside its own container, never the page. */
-.tableWrap {
-  overflow-x: auto;
-  min-width: 0;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-}
-
-.caption {
-  caption-side: top;
-  text-align: left;
-  font-family: var(--font-mono);
-  font-size: var(--t-11);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--fg-muted-on-plate);
-  padding-bottom: var(--sp-2);
-}
-
-.table thead th {
-  font-family: var(--font-mono);
-  font-size: var(--t-11);
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--fg-muted-on-plate);
-  padding: 0 0 0.75rem;
-  border-bottom: 2px solid var(--accent-on-plate);
-}
-
-.valueCol {
-  text-align: right;
-  white-space: nowrap;
-}
-
-.table tbody tr {
-  border-bottom: 1px solid rgb(255 255 255 / 0.12);
-}
-
-.metric {
-  font-family: var(--font-body);
-  font-size: var(--t-15);
-  font-weight: 400;
-  line-height: 1.5;
-  color: var(--fg-muted-on-plate);
-  padding: 0.95rem 1.5rem 0.95rem 0;
-}
-
-.value {
-  font-size: var(--t-19);
-  font-weight: 500;
-  color: var(--fg-on-plate);
-  text-align: right;
-  white-space: nowrap;
-  padding: 0.95rem 0;
-}
-
-.side {
+.benchFigure {
   display: flex;
-  flex-direction: column;
-  gap: var(--sp-3);
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
 }
-
-.figure {
-  border: 1px solid rgb(255 255 255 / 0.16);
-  padding: var(--sp-3);
-}
-
-.figureLabel {
-  font-family: var(--font-mono);
-  font-size: var(--t-11);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--fg-muted-on-plate);
-}
-
-.figureValue {
+.benchNum {
   font-family: var(--font-display);
-  font-size: var(--t-figure);
-  font-weight: 700;
-  line-height: 0.9;
-  letter-spacing: -0.05em;
-  color: var(--accent-on-plate);
-  margin-top: 0.6rem;
+  font-weight: 500;
+  font-size: clamp(2.6rem, 6vw, 3.9rem);
+  line-height: 0.85;
+  letter-spacing: -0.035em;
+  color: var(--plate-signal);
+  font-variant-numeric: tabular-nums;
 }
-
-.figureUnit {
+.benchUnit {
   font-family: var(--font-mono);
+  font-size: var(--t-15);
+  color: var(--plate-fg-muted);
+  letter-spacing: 0.02em;
+}
+.benchContext {
+  margin-top: 0.9rem;
+  max-width: 40ch;
+  font-size: var(--t-15);
+  line-height: 1.6;
+  color: var(--plate-fg-muted);
+}
+.latency {
+  margin-top: 1.1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-17);
+  color: var(--plate-fg);
+  font-variant-numeric: tabular-nums;
+}
+.latK {
+  color: var(--plate-fg-muted);
   font-size: var(--t-13);
-  color: var(--fg-muted-on-plate);
-  margin-top: 0.5rem;
+  margin-right: 0.15rem;
+}
+.latSep {
+  color: var(--plate-line);
 }
 
 .notes {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-2);
+  display: grid;
+  gap: 1.1rem;
+  align-content: start;
 }
-
 .note {
   font-size: var(--t-15);
   line-height: 1.6;
-  color: var(--fg-muted-on-plate);
-  text-wrap: pretty;
+  color: var(--plate-fg-muted);
+  max-width: 46ch;
+}
+.noteFig {
+  color: var(--plate-fg);
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  margin-right: 0.15rem;
 }
 
-@media (max-width: 900px) {
-  .body {
-    grid-template-columns: 1fr;
+/* On narrow screens the path stacks vertically. */
+@media (max-width: 680px) {
+  .flow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
   }
-
-  .metric {
-    padding-right: var(--sp-2);
+  .arrow {
+    transform: rotate(90deg);
+    margin-left: 0.3rem;
+  }
+}
+@media (max-width: 720px) {
+  .evidence {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }

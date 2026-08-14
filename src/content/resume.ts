@@ -14,13 +14,13 @@ export const profile = {
   name: 'Aryan Dhillon',
   role: 'Software Engineer',
   disciplines: [
-    'embedded firmware',
+    'embedded systems',
     'distributed systems',
-    'applied machine learning',
-    'full-stack product',
+    'machine learning',
+    'full-stack development',
   ],
   lede:
-    'I work across embedded firmware, distributed systems, applied machine learning, and full-stack product — and go deep at each.',
+    'I’m a Computer Engineering student at Purdue building software across embedded systems, distributed systems, machine learning, and full-stack development.',
   school: 'Purdue University',
   degree: 'BS Computer Engineering, minor in Business Economics',
   location: 'West Lafayette, IN',
@@ -34,7 +34,31 @@ export const profile = {
     'Data Science',
     'C/C++',
   ],
+  // Positioning line for the title spread — recruiting status, editable here.
+  status: 'Open to 2027 internship & new-grad roles',
+  thesis: ['Hi, I’m Aryan.', 'I’m a software engineer.'],
 } as const;
+
+/* Title-spread contents — the four anchor works, in reading order.
+   Sourced from the sections below so the index never drifts from them. */
+export const worksIndex = [
+  { no: '01', id: 'vaila', name: 'Vaila', discipline: 'Product · Founder', period: '2026' },
+  { no: '02', id: 'garmin', name: 'Garmin', discipline: 'Embedded · DO-178B', period: '2026' },
+  {
+    no: '03',
+    id: 'kv-store',
+    name: 'Distributed KV Store',
+    discipline: 'Systems · Java',
+    period: '2026',
+  },
+  {
+    no: '04',
+    id: 'forecasting',
+    name: 'Demand Forecasting',
+    discipline: 'Applied ML · John Deere',
+    period: '2025',
+  },
+] as const;
 
 export const contact = {
   email: 'adaryan55@gmail.com',
@@ -42,7 +66,15 @@ export const contact = {
   github: 'https://github.com/aryan0dhi',
   githubLabel: 'github.com/aryan0dhi',
   linkedin: 'https://www.linkedin.com/in/aryan-dhillon',
+  linkedinLabel: 'in/aryan-dhillon',
   resume: '/Aryan-Dhillon-Resume.pdf',
+  timezone: 'West Lafayette, IN · ET',
+  // 30-minute call booking link. Swap for a real Vaila / Cal.com / Calendly
+  // booking page; until then the button falls back to an email request.
+  scheduleUrl: 'https://vaila.dev',
+  scheduleLabel: 'schedule a 30-min call',
+  // Short stack line for the contact rail.
+  stack: 'C · Python · Swift · TypeScript',
 } as const;
 
 /* ---------------------------------------------------------------- */
@@ -121,17 +153,59 @@ export const kvStore = {
   kicker: 'Systems depth',
   headline: 'Built from the hash table up.',
   summary:
-    'A distributed key-value store written from primitives — custom hash table, consistent-hash sharding, crash-safe persistence, and a non-blocking server speaking the RESP protocol.',
-  headlineFigure: { value: '1.9M', unit: 'WAL records/sec', label: 'Recovered on restart' },
-  measurements: [
-    { metric: 'Average probes per lookup, open-addressing hash table', value: '1.37' },
-    { metric: 'Sustained throughput, 32 concurrent clients', value: '65K ops/sec' },
-    { metric: 'Virtual nodes per node, consistent-hash ring', value: '160' },
-    { metric: 'Write-ahead log recovery on restart, with group commit', value: '1.9M rec/sec' },
+    'A distributed key-value store written from primitives — a non-blocking server speaking the RESP protocol, a custom hash table, consistent-hash sharding, and a crash-safe write-ahead log. Zero dependencies: JDK 17 and javac only.',
+  // The request data path — the shape of the system, stage by stage.
+  flow: [
+    {
+      name: 'Client',
+      core: false,
+      detail:
+        'redis-cli and redis-benchmark drive it unmodified — RESP2 verified against the real Redis 8 clients.',
+    },
+    {
+      name: 'Java NIO server',
+      core: false,
+      detail:
+        'A single non-blocking event loop on java.nio — no thread-per-connection, no blocking reads.',
+    },
+    {
+      name: 'RESP parser',
+      core: false,
+      detail:
+        'Incremental Redis wire-protocol parser; CONFIG GET and HELLO answered so real tooling negotiates cleanly.',
+    },
+    {
+      name: 'Hash table',
+      core: true,
+      detail:
+        'A hand-written open-addressing table with SipHash-keyed hashing — a lookup settles in 1.37 probes on average.',
+    },
+    {
+      name: 'Write-ahead log',
+      core: false,
+      detail:
+        'Writes hit a group-committed WAL before acknowledgement; a cold start replays 1.9M records/sec.',
+    },
   ],
-  notes: [
-    'Non-blocking concurrent TCP server built on java.nio, implementing the RESP protocol.',
-    'Lock-free, zero-allocation metrics pipeline — LongAdder counters and fixed-memory latency histograms exposing p50, p99, and p99.9.',
+  // Primary evidence: the 32-client throughput benchmark and its latencies.
+  benchmark: {
+    value: '65K',
+    unit: 'ops/sec',
+    context:
+      'Sustained across 32 concurrent clients — unpipelined request/response, measured on an M2 over loopback.',
+    p50: '480µs',
+    p99: '656µs',
+  },
+  // Why the implementation is interesting — figures sit in open space.
+  implementation: [
+    {
+      figure: '28.1%',
+      note: 'of keys move when the ring grows from 3 to 4 nodes — consistent hashing with 160 virtual nodes each, against ~75% for a plain hash-mod-N.',
+    },
+    {
+      figure: 'p50 · p99 · p99.9',
+      note: 'read straight from fixed-memory latency histograms and LongAdder counters: a lock-free, zero-allocation metrics path.',
+    },
   ],
 } as const;
 
