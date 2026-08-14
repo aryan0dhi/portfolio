@@ -10,7 +10,7 @@ export function Capabilities() {
   return (
     <section id="capabilities" className="case shell" aria-labelledby="cap-title">
       <p className="eyebrow" data-reveal>
-        Colophon · Capabilities
+        Capabilities
       </p>
       <h2 id="cap-title" className={styles.title} data-reveal>
         Built from.

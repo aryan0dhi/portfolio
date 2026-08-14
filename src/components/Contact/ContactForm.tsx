@@ -31,8 +31,8 @@ export function ContactForm() {
     // No key configured → hand off to the visitor's mail client honestly,
     // rather than pretending a message was delivered.
     if (!ACCESS_KEY) {
-      const subject = encodeURIComponent(`Portfolio message — ${name}`);
-      const body = encodeURIComponent(`${message}\n\n— ${name} · ${email}`);
+      const subject = encodeURIComponent(`Portfolio message from ${name}`);
+      const body = encodeURIComponent(`${message}\n\n${name} · ${email}`);
       window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
       setStatus('mailto');
       return;
@@ -118,11 +118,11 @@ export function ContactForm() {
         <p className={styles.note} role="status" aria-live="polite">
           {status === 'idle' && 'Spam-protected · replies within a day'}
           {status === 'sending' && 'Sending…'}
-          {status === 'sent' && 'Sent — thank you. I’ll reply within a day.'}
+          {status === 'sent' && 'Sent. I’ll reply within a day.'}
           {status === 'mailto' && 'Opening your mail app…'}
           {status === 'error' && (
             <>
-              Something went wrong — email{' '}
+              Something went wrong. Email{' '}
               <a className={styles.noteLink} href={`mailto:${contact.email}`}>
                 {contact.email}
               </a>{' '}

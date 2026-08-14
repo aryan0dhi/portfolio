@@ -35,7 +35,7 @@ export const profile = {
     'C/C++',
   ],
   // Positioning line for the title spread — recruiting status, editable here.
-  status: 'Open to 2027 internship & new-grad roles',
+  status: 'Open to new-grad roles',
   thesis: ['Hi, I’m Aryan.', 'I’m a software engineer.'],
 } as const;
 
@@ -91,7 +91,7 @@ export const vaila = {
   kicker: 'Product, end to end',
   headline: 'One person, every layer of a real product.',
   summary:
-    'An AI scheduling platform for iOS, founded and built independently — SwiftUI and React on the surface, FastAPI, PostgreSQL, and Redis underneath, and prepared for App Store launch.',
+    'An AI scheduling platform for iOS, founded and built independently. SwiftUI and React on the surface; FastAPI, PostgreSQL, and Redis underneath. Prepared for App Store launch.',
   pillars: [
     {
       label: 'The engine',
@@ -101,7 +101,7 @@ export const vaila = {
     {
       label: 'The integrations',
       body:
-        'Google Calendar, Outlook / Microsoft Graph, and Apple Calendar over OAuth — token refresh, availability syncing, provider entitlements, and confirmed event creation.',
+        'Google Calendar, Outlook / Microsoft Graph, and Apple Calendar over OAuth, with token refresh, availability syncing, provider entitlements, and confirmed event creation.',
     },
     {
       label: 'The infrastructure',
@@ -153,20 +153,20 @@ export const kvStore = {
   kicker: 'Systems depth',
   headline: 'Built from the hash table up.',
   summary:
-    'A distributed key-value store written from primitives — a non-blocking server speaking the RESP protocol, a custom hash table, consistent-hash sharding, and a crash-safe write-ahead log. Zero dependencies: JDK 17 and javac only.',
+    'A distributed key-value store written from primitives. A non-blocking server speaking the RESP protocol, a custom hash table, consistent-hash sharding, and a crash-safe write-ahead log. Zero dependencies: JDK 17 and javac only.',
   // The request data path — the shape of the system, stage by stage.
   flow: [
     {
       name: 'Client',
       core: false,
       detail:
-        'redis-cli and redis-benchmark drive it unmodified — RESP2 verified against the real Redis 8 clients.',
+        'redis-cli and redis-benchmark drive it unmodified. RESP2 is verified against the real Redis 8 clients.',
     },
     {
       name: 'Java NIO server',
       core: false,
       detail:
-        'A single non-blocking event loop on java.nio — no thread-per-connection, no blocking reads.',
+        'A single non-blocking event loop on java.nio: no thread-per-connection, no blocking reads.',
     },
     {
       name: 'RESP parser',
@@ -178,7 +178,7 @@ export const kvStore = {
       name: 'Hash table',
       core: true,
       detail:
-        'A hand-written open-addressing table with SipHash-keyed hashing — a lookup settles in 1.37 probes on average.',
+        'A hand-written open-addressing table with SipHash-keyed hashing. A lookup settles in 1.37 probes on average.',
     },
     {
       name: 'Write-ahead log',
@@ -192,7 +192,7 @@ export const kvStore = {
     value: '65K',
     unit: 'ops/sec',
     context:
-      'Sustained across 32 concurrent clients — unpipelined request/response, measured on an M2 over loopback.',
+      'Sustained across 32 concurrent clients, unpipelined request/response, measured on an M2 over loopback.',
     p50: '480µs',
     p99: '656µs',
   },
@@ -200,7 +200,7 @@ export const kvStore = {
   implementation: [
     {
       figure: '28.1%',
-      note: 'of keys move when the ring grows from 3 to 4 nodes — consistent hashing with 160 virtual nodes each, against ~75% for a plain hash-mod-N.',
+      note: 'of keys move when the ring grows from 3 to 4 nodes under consistent hashing with 160 virtual nodes each, against ~75% for a plain hash-mod-N.',
     },
     {
       figure: 'p50 · p99 · p99.9',
@@ -223,7 +223,7 @@ export const johnDeere = {
   kicker: 'Applied machine learning',
   headline: 'Forecasts that report their own uncertainty.',
   summary:
-    'Monthly replacement-part demand across more than a thousand part-location series — evaluated as a probabilistic forecast rather than a single number, and presented to the corporate partner.',
+    'Monthly replacement-part demand across more than a thousand part-location series, evaluated as a probabilistic forecast rather than a single number, and presented to the corporate partner.',
   method: [
     { n: '01', name: 'Series', body: '1,000+ part-location time series.' },
     { n: '02', name: 'Sequences', body: '12-month historical demand windows.' },
@@ -255,7 +255,7 @@ export const supporting = [
     period: 'September 2025',
     meta: 'Streamlit · Yahoo Finance',
     body:
-      'A modular backtesting engine over five years of historical OHLCV data — three configurable strategies, portfolio state management, buy-and-hold benchmarking, Sharpe ratio and max drawdown analysis, with position sizing, stop-loss, regime and volatility filters.',
+      'A modular backtesting engine over five years of historical OHLCV data: three configurable strategies, portfolio state management, buy-and-hold benchmarking, Sharpe ratio and max drawdown analysis, with position sizing, stop-loss, regime and volatility filters.',
   },
 ] as const;
 

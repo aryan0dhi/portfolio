@@ -7,6 +7,7 @@ import { Forecasting } from './components/Forecasting/Forecasting';
 import { Supporting } from './components/Supporting/Supporting';
 import { Capabilities } from './components/Capabilities/Capabilities';
 import { Contact } from './components/Contact/Contact';
+import { Analytics } from '@vercel/analytics/react';
 import { useReveal } from './hooks/useReveal';
 
 export function App() {
@@ -28,6 +29,7 @@ export function App() {
         <Capabilities />
       </main>
       <Contact />
+      <Analytics />
     </>
   );
 }

@@ -16,7 +16,6 @@ export function Hero() {
       <div className={`shell ${styles.inner}`}>
         <div className={styles.folio} data-reveal>
           <span>{profile.name}</span>
-          <span className={styles.folioMid}>Selected Works</span>
           <span>
             {profile.school.replace(' University', '')} · CmpE · {profile.graduation.split(' ')[1]}
           </span>

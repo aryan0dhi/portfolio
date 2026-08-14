@@ -74,7 +74,7 @@ export function Contact() {
               >
                 <span aria-hidden="true">$</span> {contact.scheduleLabel}
               </a>
-              <p className={styles.callNote}>Booked through Vaila — my own scheduling app.</p>
+              <p className={styles.callNote}>Booked through Vaila, my own scheduling app.</p>
             </div>
           </div>
 
@@ -88,7 +88,6 @@ export function Contact() {
           <span>
             © {year} {profile.name}
           </span>
-          <span className={styles.setIn}>Set in Fraunces, Work Sans &amp; JetBrains Mono</span>
           <a className={styles.toTop} href="#main">
             Back to top ↑
           </a>

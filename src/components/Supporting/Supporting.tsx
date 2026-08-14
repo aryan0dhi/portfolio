@@ -9,11 +9,8 @@ import styles from './Supporting.module.css';
 export function Supporting() {
   return (
     <section id="supporting" className="case shell" aria-labelledby="supporting-title">
-      <p className="eyebrow" data-reveal>
-        Appendix · Further work
-      </p>
       <h2 id="supporting-title" className={`${styles.title}`} data-reveal>
-        Also on the record.
+        More
       </h2>
 
       <ol className={styles.list}>
@@ -38,7 +35,7 @@ export function Supporting() {
       </ol>
 
       <p className={`footnote ${styles.foot}`} data-reveal>
-        <span className="mark">†</span> {footnote.name}, {footnote.role} ({footnote.period}) —{' '}
+        <span className="mark">†</span> {footnote.name}, {footnote.role} ({footnote.period}).{' '}
         {footnote.body}
       </p>
     </section>
