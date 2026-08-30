@@ -156,6 +156,9 @@ export const kvStore = {
   headline: 'Built from the hash table up.',
   summary:
     'A distributed key-value store written from primitives. A non-blocking server speaking the RESP protocol, a custom hash table, consistent-hash sharding, and a crash-safe write-ahead log. Zero dependencies: JDK 17 and javac only.',
+  // The motivation, and it points back at the Vaila section above.
+  why:
+    'Vaila runs its background job workers on Redis. Using it was easy; explaining it wasn\u2019t \u2014 I couldn\u2019t have said how it stores a key, what happens to the data if the process dies, or what sharding it across machines would take. So I built one and found out.',
   // The request data path — the shape of the system, stage by stage.
   flow: [
     {

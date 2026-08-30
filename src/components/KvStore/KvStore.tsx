@@ -30,6 +30,9 @@ export function KvStore() {
           <p className={`body ${styles.summary}`} data-reveal data-reveal-delay="1">
             {kvStore.summary}
           </p>
+          <p className={styles.why} data-reveal data-reveal-delay="2">
+            {kvStore.why}
+          </p>
         </div>
         <div className="case-rail" data-reveal data-reveal-delay="2">
           <div className="rail-item">
