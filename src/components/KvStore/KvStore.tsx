@@ -108,6 +108,9 @@ export function KvStore() {
                   <span className={styles.noteFig}>{it.figure}</span> {it.note}
                 </p>
               ))}
+              <a className={styles.source} href={kvStore.repo} target="_blank" rel="noreferrer">
+                Read the source <span aria-hidden="true">↗</span>
+              </a>
             </div>
           </div>
         </div>

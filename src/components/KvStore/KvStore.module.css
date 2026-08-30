@@ -188,3 +188,19 @@
     gap: 2rem;
   }
 }
+
+/* Source link — lives on the dark plate, so it uses the plate signal colour
+   rather than the page accent used by links on paper. */
+.source {
+  justify-self: start;
+  font-family: var(--font-mono);
+  font-size: var(--t-13);
+  letter-spacing: 0.02em;
+  color: var(--plate-signal);
+  border-bottom: 1px solid color-mix(in srgb, var(--plate-signal) 35%, transparent);
+  padding-bottom: 2px;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.source:hover {
+  border-bottom-color: var(--plate-signal);
+}

@@ -149,8 +149,10 @@ export const kvStore = {
   id: 'kv-store',
   name: 'Distributed Key-Value Store',
   role: 'Java',
-  period: 'February 2026',
+  period: 'August 2026',
   kicker: 'Systems depth',
+  repo: 'https://github.com/aryan0dhi/distributed-kv-store',
+  repoLabel: 'github.com/aryan0dhi/distributed-kv-store',
   headline: 'Built from the hash table up.',
   summary:
     'A distributed key-value store written from primitives. A non-blocking server speaking the RESP protocol, a custom hash table, consistent-hash sharding, and a crash-safe write-ahead log. Zero dependencies: JDK 17 and javac only.',
@@ -166,7 +168,7 @@ export const kvStore = {
       name: 'Java NIO server',
       core: false,
       detail:
-        'A single non-blocking event loop on java.nio: no thread-per-connection, no blocking reads.',
+        'Several non-blocking java.nio event loops, each owning its connections for life: no thread-per-connection, and no locking on connection state.',
     },
     {
       name: 'RESP parser',
@@ -178,7 +180,7 @@ export const kvStore = {
       name: 'Hash table',
       core: true,
       detail:
-        'A hand-written open-addressing table with SipHash-keyed hashing. A lookup settles in 1.37 probes on average.',
+        'A hand-written open-addressing table with SipHash-keyed hashing. A lookup settles in about 1.4 probes on average.',
     },
     {
       name: 'Write-ahead log',
@@ -205,6 +207,10 @@ export const kvStore = {
     {
       figure: 'p50 · p99 · p99.9',
       note: 'read straight from fixed-memory latency histograms and LongAdder counters: a lock-free, zero-allocation metrics path.',
+    },
+    {
+      figure: '895K ops/sec',
+      note: 'served once pipelining removes the round trip, measured by redis-benchmark. The unpipelined ceiling above is the network, not the store.',
     },
   ],
 } as const;
