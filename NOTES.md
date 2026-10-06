@@ -79,7 +79,7 @@ Each instrument only writes its `draw(ctx, w, h, t, elapsed, reduced)` callback.
 ## Content = `src/content/resume.ts`
 Edit copy/data there, not in components. Canonical résumé facts live in Claude memory
 (`resume-facts.md`) — **v7** (2026-08-13). Nothing embellished: Garmin DO-178B / GTS 8x0 v5.03,
-8 change requests; Vaila = Founder & CEO, prepared-for-launch (not launched); KV store 65K
+8 change requests; Vaila = Founder & CEO, live on the App Store (2026-10); KV store 65K
 ops/sec / p50 119µs / p99 238µs / 1.9M WAL rec/sec; John Deere reports no numbers.
 `profile.status` and `profile.thesis` and `worksIndex` were added for the hero.
 

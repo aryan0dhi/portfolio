@@ -6,8 +6,8 @@
  *  - BEAMRail's impact stays qualitative ("significantly") — no invented %.
  *  - The John Deere work names its evaluation metrics but no values,
  *    because the résumé reports none.
- *  - Vaila is "prepared for App Store launch", never "launched".
- *    No user counts, downloads, revenue, or ratings anywhere.
+ *  - Vaila is live on the App Store. No user counts, downloads, revenue,
+ *    or ratings anywhere.
  */
 
 export const profile = {
@@ -88,10 +88,11 @@ export const vaila = {
   period: 'March 2026 — Present',
   url: 'https://vaila.dev',
   urlLabel: 'vaila.dev',
+  appStoreUrl: 'https://apps.apple.com/us/app/vaila/id6789842845',
   kicker: 'Product, end to end',
   headline: 'One person, every layer of a real product.',
   summary:
-    'An AI scheduling platform for iOS, founded and built independently. SwiftUI and React on the surface; FastAPI, PostgreSQL, and Redis underneath. Prepared for App Store launch.',
+    'An AI scheduling platform for iOS, founded and built independently. SwiftUI and React on the surface; FastAPI, PostgreSQL, and Redis underneath. Available now on the App Store.',
   pillars: [
     {
       label: 'The engine',

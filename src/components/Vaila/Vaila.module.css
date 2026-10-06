@@ -45,7 +45,7 @@
   background: var(--paper-raised);
 }
 
-/* Launch card — App Store "coming soon" + notify + visit */
+/* Launch card — App Store badge + visit */
 .launch {
   display: grid;
   gap: 1.2rem;
@@ -67,6 +67,17 @@
   border-radius: 11px;
   background: var(--ink);
   color: var(--paper);
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out);
+}
+.badge:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+.badge:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 .apple {
   width: 1.55rem;
@@ -92,58 +103,6 @@
   letter-spacing: -0.01em;
 }
 
-/* Notify affordance */
-.notify {
-  display: grid;
-  gap: 0.6rem;
-}
-.notifyLabel {
-  font-family: var(--font-mono);
-  font-size: var(--t-11);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-}
-.notifyRow {
-  display: flex;
-  gap: 0.5rem;
-}
-.notifyInput {
-  flex: 1;
-  min-width: 0;
-  font: inherit;
-  font-size: var(--t-15);
-  color: var(--ink);
-  background: var(--paper);
-  border: 1px solid var(--hairline-2);
-  border-radius: 8px;
-  padding: 0.6rem 0.8rem;
-  transition: border-color var(--dur-fast) var(--ease-out);
-}
-.notifyInput::placeholder {
-  color: var(--ink-faint);
-}
-.notifyInput:focus-visible {
-  outline: none;
-  border-color: var(--accent);
-}
-.notifyBtn {
-  flex: none;
-  font-family: var(--font-mono);
-  font-size: var(--t-13);
-  letter-spacing: 0.04em;
-  color: var(--paper);
-  background: var(--ink);
-  border-radius: 8px;
-  padding: 0.6rem 1rem;
-  transition:
-    transform var(--dur-fast) var(--ease-out),
-    opacity var(--dur-fast) var(--ease-out);
-}
-.notifyBtn:hover {
-  transform: translateY(-1px);
-  opacity: 0.92;
-}
 .visit {
   font-family: var(--font-mono);
   font-size: var(--t-13);
@@ -240,11 +199,5 @@
   .layerBody {
     grid-template-columns: 1fr;
     gap: 0.4rem;
-  }
-  .notifyRow {
-    flex-direction: column;
-  }
-  .notifyBtn {
-    width: 100%;
   }
 }
